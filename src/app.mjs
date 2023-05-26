@@ -11,9 +11,8 @@ const app = express()
 const router = Router()
 const port = 3000
 
-function config_to_meta(e){
+function assemble_metadata(e){
   return {
-    source: e.source,
     description: e.description,
     origin: e.origin,
     license: e.license,
@@ -24,11 +23,11 @@ function config_to_meta(e){
 router.get('/dataset', (req, res) => {
   res.json(Object.fromEntries(
     Object.entries(ds_config)
-      .map(([k, v]) => [k, config_to_meta(v)])))
+      .map(([k, v]) => [k, assemble_metadata(v)])))
 })
 
 router.get('/dataset/:dataset', (req, res) => {
-  res.json(config_to_meta(ds_config[req.params.dataset]))
+  res.json(assemble_metadata(ds_config[req.params.dataset]))
 })
 
 router.get('/dataset/:dataset/raw', async (req, res) => {
@@ -43,7 +42,7 @@ router.get('/dataset/:dataset/raw', async (req, res) => {
 })
 
 app.use(pino())
-app.use('/v1/', router)
+app.use('/v1/', router) // use v1 prefix for all URLs
 app.listen(port, () => {
   console.log(`GTFS API listening on port ${port}`)
 })

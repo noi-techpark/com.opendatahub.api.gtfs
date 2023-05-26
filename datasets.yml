@@ -1,10 +1,19 @@
 datasets:
-  gtfs-skyalps:
-    source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/Agency.txt
+  skyalps:
+    source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
     description: Skyalps flight data
-    origin: Skyalps.it
-    license:
-    metadata:
-    cache-lifetime-sec: 10000
-    
-    
+    origin: skyalps.it
+    license: unknown
+    metadata: 
+      meta-tag-one: an interesting metadata string
+      meta-tag-two:
+        - object 1 of a list
+        - object 2 of a list
+      number: 42
+  sta:
+    source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
+    description: STA mobility data
+    origin: sta.bz.it
+    license: CC0
+    metadata: 
+      placeholder: more metadata
