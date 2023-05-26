@@ -4,23 +4,34 @@ import yaml from 'js-yaml'
 import fs from 'fs'
 import got from 'got'
 
-
 dotenv.config()
 const ds_config = yaml.load(fs.readFileSync('datasets.yml')).datasets
 const app = express()
-const port = process.env.APP_PORT
+const port = 3000
+
+function config_to_meta(e){
+  return {
+    source: e.source,
+    description: e.description,
+    origin: e.origin,
+    license: e.license,
+    metadata: e.metadata
+  } 
+}
 
 app.get('/dataset', (req, res) => {
-  res.send('Hello World!')
+  res.send(Object.fromEntries(
+    Object.entries(ds_config)
+      .map(([k, v]) => [k, config_to_meta(v)])))
 })
 
 app.get('/dataset/:dataset', (req, res) => {
-  res.send(`${req.params.dataset}`)
+  res.send(config_to_meta(ds_config[req.params.dataset]))
 })
 
 app.get('/dataset/:dataset/raw', async (req, res) => {
   const dataset_id = req.params.dataset
-  const raw = await got.get(ds_config[dataset_id]).buffer()
+  const raw = await got.get(ds_config[dataset_id].source).buffer()
   res.writeHead(200, {
     'Content-Type': 'application/zip',
     'Content-disposition': 'attachment;filename=' + dataset_id + '.zip',

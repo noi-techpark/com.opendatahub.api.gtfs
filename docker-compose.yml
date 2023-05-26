@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  gtfs-api:
+    container_name: app
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile
+    entrypoint: npm run dev
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${SERVER_PORT}:3000"
+    volumes:
+      - .:/app
