@@ -3,11 +3,14 @@ import express from 'express'
 import yaml from 'js-yaml'
 import fs from 'fs'
 import got from 'got'
+import pino from 'pino-http'
 
 dotenv.config()
 const ds_config = yaml.load(fs.readFileSync('datasets.yml')).datasets
 const app = express()
 const port = 3000
+
+app.use(pino())
 
 function config_to_meta(e){
   return {
@@ -20,13 +23,13 @@ function config_to_meta(e){
 }
 
 app.get('/dataset', (req, res) => {
-  res.send(Object.fromEntries(
+  res.json(Object.fromEntries(
     Object.entries(ds_config)
       .map(([k, v]) => [k, config_to_meta(v)])))
 })
 
 app.get('/dataset/:dataset', (req, res) => {
-  res.send(config_to_meta(ds_config[req.params.dataset]))
+  res.json(config_to_meta(ds_config[req.params.dataset]))
 })
 
 app.get('/dataset/:dataset/raw', async (req, res) => {
