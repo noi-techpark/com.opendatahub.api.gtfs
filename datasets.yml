@@ -1,0 +1,10 @@
+datasets:
+  gtfs-skyalps:
+    source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/Agency.txt
+    description: Skyalps flight data
+    origin: Skyalps.it
+    license:
+    metadata:
+    cache-lifetime-sec: 10000
+    
+    
