@@ -3,6 +3,8 @@ This is a simple POC MVP of what could be the Open Data Hub GTFS API
 
 Goal is to provide a single access point where Open Data Hub users can discover and download GTFS files and some metadata related to them
 
+The API is a simple storage-less frontend to GTFS files hosted somewhere else (primarily on a S3 bucket)
+
 API proposal can be found [here](https://github.com/noi-techpark/it.bz.opendatahub.api.mobility-ninja/discussions/34)
 
 ## Installation
