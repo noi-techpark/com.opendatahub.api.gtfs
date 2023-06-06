@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+#
+# SPDX-License-Identifier: CC0-1.0
+
 datasets:
   skyalps:
     source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip

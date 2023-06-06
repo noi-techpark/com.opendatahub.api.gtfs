@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
 # GTFS API server
 This is a simple POC MVP of what could be the Open Data Hub GTFS API
 
