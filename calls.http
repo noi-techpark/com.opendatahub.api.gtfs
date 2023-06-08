@@ -1,0 +1,11 @@
+
+@host=http://localhost:{{$dotenv SERVER_PORT}}
+
+### Get available datasets
+GET {{host}}/v1/dataset
+### Get dataset metadata
+GET {{host}}/v1/dataset/skyalps-flight-data
+### Get from http source
+GET {{host}}/v1/dataset/sta-time-tables/raw
+### Get from ftp source
+GET {{host}}/v1/dataset/skyalps-flight-data/raw

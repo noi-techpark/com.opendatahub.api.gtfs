@@ -37,20 +37,18 @@ router.get('/dataset/:dataset', (req, res) => {
   res.json(assemble_metadata(ds_config[req.params.dataset]))
 })
 
+const getters = {
+  'http': (uri) => got.get(uri).buffer(),
+  'https': (uri) => got.get(uri).buffer(),
+  'ftp': (uri) => getFile(uri)
+}
+
 router.get('/dataset/:dataset/raw', async (req, res) => {
   const dataset_id = req.params.dataset
-  const uri = ds_config[dataset_id]
+  const uri = ds_config[dataset_id].source
 
-  let raw
   const proto = uri.match(/^(\w+):.*/)[1].toLowerCase() // extract the protocol part of an URL
-  switch (proto) {
-    case 'http':
-      raw = await got.get(uri).buffer()
-      break
-    case 'ftp':
-      raw = await getFile(uri).
-      break
-  }
+  const raw = await getters[proto](uri)
   res.writeHead(200, {
     'Content-Type': 'application/zip',
     'Content-disposition': 'attachment;filename=' + dataset_id + '.zip',
