@@ -45,10 +45,13 @@ const getters = {
 
 router.get('/dataset/:dataset/raw', async (req, res) => {
   const dataset_id = req.params.dataset
-  const uri = ds_config[dataset_id].source
+  const dataset_config = ds_config[dataset_id]
+  const uri = dataset_config.source
 
   const proto = uri.match(/^(\w+):.*/)[1].toLowerCase() // extract the protocol part of an URL
-  const raw = await getters[proto](uri)
+  const handler = getters[proto]
+
+  const raw = await handler(uri)
   res.writeHead(200, {
     'Content-Type': 'application/zip',
     'Content-disposition': 'attachment;filename=' + dataset_id + '.zip',
