@@ -9,6 +9,9 @@ import fs from 'fs'
 import got from 'got'
 import pino from 'pino-http'
 
+import { getFile } from "@tpisto/ftp-any-get"
+
+
 dotenv.config()
 const ds_config = yaml.load(fs.readFileSync('datasets.yml')).datasets
 const app = express()
@@ -36,7 +39,18 @@ router.get('/dataset/:dataset', (req, res) => {
 
 router.get('/dataset/:dataset/raw', async (req, res) => {
   const dataset_id = req.params.dataset
-  const raw = await got.get(ds_config[dataset_id].source).buffer()
+  const uri = ds_config[dataset_id]
+
+  let raw
+  const proto = uri.match(/^(\w+):.*/)[1].toLowerCase() // extract the protocol part of an URL
+  switch (proto) {
+    case 'http':
+      raw = await got.get(uri).buffer()
+      break
+    case 'ftp':
+      raw = await getFile(uri).
+      break
+  }
   res.writeHead(200, {
     'Content-Type': 'application/zip',
     'Content-disposition': 'attachment;filename=' + dataset_id + '.zip',

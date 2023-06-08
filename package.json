@@ -12,6 +12,7 @@
   "author": "NOI Techpark AG",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@tpisto/ftp-any-get": "^0.1.7",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "got": "^12.6.0",
