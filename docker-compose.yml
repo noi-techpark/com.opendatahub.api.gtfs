@@ -15,5 +15,6 @@ services:
     env_file: .env
     ports:
       - "${SERVER_PORT}:3000"
+      - "9229:9229"
     volumes:
       - .:/app

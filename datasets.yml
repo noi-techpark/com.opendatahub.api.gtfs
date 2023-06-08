@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: CC0-1.0
 
 datasets:
-  skyalps:
+  skyalps-flight-data:
     source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
     description: Skyalps flight data
     origin: skyalps.it
@@ -14,8 +14,8 @@ datasets:
         - object 1 of a list
         - object 2 of a list
       number: 42
-  sta:
-    source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
+  sta-time-tables:
+    source: ftp://anonymous:guest@ftp.sta.bz.it/gtfs/google_transit_shp.zip
     description: STA mobility data
     origin: sta.bz.it
     license: CC0
