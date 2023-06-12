@@ -20,9 +20,8 @@ A calls.http file with example calls is provided. To use it, you have to install
 
 ## List available datasets
 ```
-GET /v1/dataset
+GET /v1/dataset -> application/json  
 ```  
-&rarr; application/json  
 
 Returns a map of available GTFS datasets by ID
 ```
@@ -47,17 +46,15 @@ For the most part, these are defined verbatim in the [datasets.yml](datasets.yml
 
 ## Get metadata information of a specific dataset
 ```
-GET /v1/dataset/<dataset id>
+GET /v1/dataset/<dataset id> -> application/json  
 ```  
-&rarr; application/json  
 
 The same as [this call](#list-available-datasets) but restricted to a specific dataset
 
 ## Download the GTFS file of a dataset
 ```
-GET /v1/dataset/<dataset id>/raw
+GET /v1/dataset/<dataset id>/raw -> application/zip
 ```  
-&rarr; application/zip
 
 Returns the raw GTFS file with `filename` = `<dataset id>.zip`
 
