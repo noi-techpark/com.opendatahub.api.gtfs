@@ -47,7 +47,7 @@ For the most part, these are defined verbatim in the [datasets.yml](datasets.yml
 `GET /v1/dataset/<dataset id>`  
 &rarr; application/json  
 
-The same as [this call](#List-available-datasets) but restricted to a specific dataset
+The same as [this call](#list-available-datasets) but restricted to a specific dataset
 
 ## Download the GTFS file of a dataset
 `GET /v1/dataset/<dataset id>/raw`  
