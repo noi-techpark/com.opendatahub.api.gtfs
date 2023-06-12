@@ -19,7 +19,9 @@ API proposal can be found [here](https://github.com/noi-techpark/it.bz.opendatah
 A calls.http file with example calls is provided. To use it, you have to install the VSCode extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or something compatible
 
 ## List available datasets
-`GET /v1/dataset`  
+```
+GET /v1/dataset
+```  
 &rarr; application/json  
 
 Returns a map of available GTFS datasets by ID
@@ -44,13 +46,17 @@ Returns a map of available GTFS datasets by ID
 For the most part, these are defined verbatim in the [datasets.yml](datasets.yml) file 
 
 ## Get metadata information of a specific dataset
-`GET /v1/dataset/<dataset id>`  
+```
+GET /v1/dataset/<dataset id>
+```  
 &rarr; application/json  
 
 The same as [this call](#list-available-datasets) but restricted to a specific dataset
 
 ## Download the GTFS file of a dataset
-`GET /v1/dataset/<dataset id>/raw`  
+```
+GET /v1/dataset/<dataset id>/raw
+```  
 &rarr; application/zip
 
 Returns the raw GTFS file with `filename` = `<dataset id>.zip`
