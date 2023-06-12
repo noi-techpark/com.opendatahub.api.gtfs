@@ -28,3 +28,18 @@ Datasets are configured in datasets.yml
 
 ## Caching
 GTFS files are cached in memory. The time to live before cache expires is configured per-dataset via the `cache_ttl` parameter
+
+## REUSE
+
+This project is [REUSE](https://reuse.software) compliant, more information about the usage of REUSE in NOI Techpark repositories can be found [here](https://github.com/noi-techpark/odh-docs/wiki/Guidelines-for-developers-and-licenses#guidelines-for-contributors-and-new-developers).
+
+Since the CI for this project checks for REUSE compliance you might find it useful to use a pre-commit hook checking for REUSE compliance locally. The [pre-commit-config](.pre-commit-config.yaml) file in the repository root is already configured to check for REUSE compliance with help of the [pre-commit](https://pre-commit.com) tool.
+
+Install the tool by running:
+```bash
+pip install pre-commit
+```
+Then install the pre-commit hook via the config file by running:
+```bash
+pre-commit install
+```
