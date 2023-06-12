@@ -25,3 +25,6 @@ if you don't want to use docker, try
 
 ## Dataset configuration
 Datasets are configured in datasets.yml
+
+## Caching
+GTFS files are cached in memory. The time to live before cache expires is configured per-dataset via the `cache_ttl` parameter

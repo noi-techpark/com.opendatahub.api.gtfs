@@ -4,7 +4,10 @@
 
 datasets:
   skyalps-flight-data:
+    # The backend URL the data is downloaded from
     source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
+    # time to live of GTFS file cache. 
+    cache_ttl: 300
     description: Skyalps flight data
     origin: skyalps.it
     license: unknown
@@ -16,6 +19,7 @@ datasets:
       number: 42
   sta-time-tables:
     source: ftp://anonymous:guest@ftp.sta.bz.it/gtfs/google_transit_shp.zip
+    cache_ttl: 7200
     description: STA mobility data
     origin: sta.bz.it
     license: CC0
