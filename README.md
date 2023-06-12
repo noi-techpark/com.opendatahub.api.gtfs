@@ -3,19 +3,59 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 
 SPDX-License-Identifier: CC0-1.0
 -->
+![REUSE Compliance](https://github.com/noi-techpark/com.opendatahub.api.gtfs/actions/workflows/reuse.yml/badge.svg)
 
 # GTFS API server
-
-![REUSE Compliance](https://github.com/noi-techpark/com.opendatahub.api.gtfs/actions/workflows/reuse.yml/badge.svg)
 
 This is a simple POC MVP of what could be the Open Data Hub GTFS API
 
 Goal is to provide a single access point where Open Data Hub users can discover and download GTFS files and some metadata related to them
 
-The API is a simple storage-less frontend to GTFS files hosted somewhere else (primarily on a S3 bucket)
+The API is a simple storage-less frontend to [GTFS](https://gtfs.org/) files hosted somewhere else (primarily on a S3 bucket)
 
 API proposal can be found [here](https://github.com/noi-techpark/it.bz.opendatahub.api.mobility-ninja/discussions/34)
 
+# Usage
+A calls.http file with example calls is provided. To use it, you have to install the VSCode extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or something compatible
+
+## List available datasets
+`GET /v1/dataset`  
+&rarr; application/json  
+
+Returns a map of available GTFS datasets by ID
+```
+{
+    "<dataset id>": {
+        "description": String,
+        "endpoint": String(URL),
+        "origin": String
+        "license": String
+        "metadata": JSON
+    },
+...
+```
+`dataset id` the unique identifier of the dataset used in other calls  
+`description` A short description of the dataset  
+`endpoint` URL that points to the raw GTFS zip file download  
+`origin` Name of the data provider  
+`license` SPDX license identifier under which the data is provided  
+`medadata` A free form JSON that may provide additional information
+
+For the most part, these are defined verbatim in the [datasets.yml](datasets.yml) file 
+
+## Get metadata information of a specific dataset
+`GET /v1/dataset/<dataset id>`  
+&rarr; application/json  
+
+The same as [this call](#List-available-datasets) but restricted to a specific dataset
+
+## Download the GTFS file of a dataset
+`GET /v1/dataset/<dataset id>/raw`  
+&rarr; application/zip
+
+Returns the raw GTFS file with `filename` = `<dataset id>.zip`
+
+# Development
 ## Installation
 `docker-compose up` to start your local development environment
 
@@ -26,7 +66,12 @@ if you don't want to use docker, try
 ## Dataset configuration
 Datasets are configured in datasets.yml
 
-## Caching
+### Source
+Currently supported source types:
+ - http/s
+ - FTP
+
+### Caching
 GTFS files are cached in memory. The time to live before cache expires is configured per-dataset via the `cache_ttl` parameter
 
 ## REUSE
