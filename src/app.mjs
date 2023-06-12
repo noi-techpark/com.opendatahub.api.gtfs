@@ -18,7 +18,7 @@ const app = express()
 const router = Router()
 const port = 3000
 const cache = new NodeCache()
-const pino = pino({ level: process.env.LOG_LEVEL })
+const pinoHttp = pino({ level: process.env.LOG_LEVEL })
 
 function assembleMetadata (id, e) {
   return {
@@ -80,7 +80,7 @@ router.get('/dataset/:dataset/raw', async (req, res) => {
   res.end(rawGTFS)
 })
 
-app.use(pino)
+app.use(pinoHttp)
 app.set('trust proxy')
 app.use('/v1/', router) // use v1 prefix for all URLs
 app.listen(port, () => {
