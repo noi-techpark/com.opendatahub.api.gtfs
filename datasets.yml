@@ -8,20 +8,24 @@ datasets:
     source: https://flighdata-skyalps-gtfs-test.s3.eu-west-1.amazonaws.com/GTFS.zip
     # time to live of GTFS file cache. 
     cache_ttl: 300
-    description: Skyalps flight data
+    description: Planned flights of the operator SkyAlps
     origin: skyalps.it
-    license: unknown
+    license: CC0
     metadata: 
-      meta-tag-one: an interesting metadata string
+      meta-tag-one: flights
       meta-tag-two:
-        - object 1 of a list
-        - object 2 of a list
+        - air services
+        - public transportation
       number: 42
   sta-time-tables:
     source: ftp://anonymous:guest@ftp.sta.bz.it/gtfs/google_transit_shp.zip
     cache_ttl: 7200
-    description: STA mobility data
+    description: Public transportation data provided by STA
     origin: sta.bz.it
     license: CC0
     metadata: 
-      placeholder: more metadata
+      meta-tag-one: public transportation
+      meta-tag-two:
+        - buses
+        - trains
+        - cable cars
