@@ -12,11 +12,10 @@ datasets:
     origin: skyalps.it
     license: CC0
     metadata: 
-      meta-tag-one: flights
-      meta-tag-two:
-        - air services
+      tags:
         - public transportation
-      number: 42
+        - flights
+        - air services
   sta-time-tables:
     source: ftp://anonymous:guest@ftp.sta.bz.it/gtfs/google_transit_shp.zip
     cache_ttl: 7200
@@ -24,8 +23,8 @@ datasets:
     origin: sta.bz.it
     license: CC0
     metadata: 
-      meta-tag-one: public transportation
-      meta-tag-two:
+      tags:
+        - public transportation
         - buses
         - trains
         - cable cars

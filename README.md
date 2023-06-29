@@ -7,13 +7,13 @@ SPDX-License-Identifier: CC0-1.0
 
 # GTFS API server
 
-This is a simple POC MVP of what could be the Open Data Hub GTFS API
+This repo contains the Open Data Hub GTFS API
 
-Goal is to provide a single access point where Open Data Hub users can discover and download GTFS files and some metadata related to them
+It's goal is to provide a single access point where Open Data Hub users can discover and download GTFS files and some metadata related to them
 
 The API is a simple storage-less frontend to [GTFS](https://gtfs.org/) files hosted somewhere else (primarily on a S3 bucket)
 
-API proposal can be found [here](https://github.com/noi-techpark/it.bz.opendatahub.api.mobility-ninja/discussions/34)
+Initial API proposal can be found [here](https://github.com/noi-techpark/it.bz.opendatahub.api.mobility-ninja/discussions/34)
 
 # Usage
 A calls.http file with example calls is provided. To use it, you have to install the VSCode extension [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or something compatible
