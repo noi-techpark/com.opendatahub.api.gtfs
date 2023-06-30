@@ -95,7 +95,15 @@ const redirectSwagger = (req, res) => {
 const openapiRouter = Router()
 openapiRouter.get('/', redirectSwagger)
 router.get('/', redirectSwagger)
-router.get('/apispec', (req, res) => res.sendFile(path.resolve('openapi3.yml')))
+
+// Load openapi spec in memory, replace the Server URL placeholder with our configured one
+const apiSpecContent = fs.readFileSync('openapi3.yml', { encoding: 'utf8' })
+  .replace('__API_BASE_URL__', process.env.API_BASE_URL)
+
+router.get('/apispec', (req, res) => {
+  res.set('Content-Type', 'application/yaml')
+  res.send(apiSpecContent)
+})
 
 app.use('/', openapiRouter)
 app.use('/v1/', router) // use v1 prefix for all URLs

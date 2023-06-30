@@ -17,7 +17,7 @@ info:
     url: https://docs.opendatahub.com/en/latest/licenses.html
   version: V1
 servers:
-  - url: https://gtfs.api.opendatahub.com/v1
+  - url: __API_BASE_URL__/v1
 paths:
   /dataset:
     get:
