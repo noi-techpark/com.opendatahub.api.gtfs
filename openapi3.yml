@@ -28,7 +28,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/datasets"
+                $ref: "#/components/schemas/dataset-map"
   /v1/dataset/{datasetId}:
     get:
       summary: Get metadata of specific dataset by ID
@@ -40,7 +40,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/datasets"
+                $ref: "#/components/schemas/dataset"
         400:
           description: Invalid dataset ID
   /v1/dataset/{datasetId}/raw:
@@ -70,7 +70,7 @@ components:
       schema:
         type: string
   schemas:
-    datasets:
+    dataset-map:
       type: object
       description: Map of datasets by ID (id, dataset). `skyalps-flight-data` and `sta-time-tables` are example IDs
       properties:
