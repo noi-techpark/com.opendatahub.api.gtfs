@@ -9,7 +9,6 @@ import fs from 'fs'
 import got from 'got'
 import pino from 'pino-http'
 import NodeCache from 'node-cache'
-import path from 'path'
 import cors from 'cors'
 
 import { getFile } from '@tpisto/ftp-any-get'
