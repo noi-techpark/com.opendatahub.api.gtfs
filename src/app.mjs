@@ -90,15 +90,14 @@ const redirectSwagger = (req, res) => {
 }
 const openapiRouter = Router()
 openapiRouter.get('/', redirectSwagger)
-app.use('/', openapiRouter)
 router.get('/', redirectSwagger)
 router.get('/apispec', (req, res) => res.sendFile(path.resolve('openapi3.yml')))
 
-
 app.use(pinoHttp)
+app.use(cors())
 app.set('trust proxy')
+app.use('/', openapiRouter)
 app.use('/v1/', router) // use v1 prefix for all URLs
-app.use(cors({ origin: '*' }))
 app.listen(port, () => {
   console.log(`GTFS API listening on port ${port}`)
 })
