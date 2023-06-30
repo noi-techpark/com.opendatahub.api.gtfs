@@ -19,7 +19,7 @@ info:
 servers:
   - url: https://gtfs.api.opendatahub.com/v1
 paths:
-  /v1/dataset:
+  /dataset:
     get:
       summary: Get all available datasets
       responses:
@@ -29,7 +29,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/dataset-map"
-  /v1/dataset/{datasetId}:
+  /dataset/{datasetId}:
     get:
       summary: Get metadata of specific dataset by ID
       parameters:
@@ -43,7 +43,7 @@ paths:
                 $ref: "#/components/schemas/dataset"
         400:
           description: Invalid dataset ID
-  /v1/dataset/{datasetId}/raw:
+  /dataset/{datasetId}/raw:
     get:
       summary: Download the raw GTFS (.zip) file
       parameters:
