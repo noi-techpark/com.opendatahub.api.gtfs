@@ -22,13 +22,13 @@ const port = 3000
 const cache = new NodeCache()
 const pinoHttp = pino({ level: process.env.LOG_LEVEL })
 
-function assembleMetadata (id, e) {
+function assembleMetadata (id, cfg) {
   return {
-    description: e.description,
+    description: cfg.description,
     endpoint: `${process.env.API_BASE_URL}/v1/dataset/${id}/raw`,
-    origin: e.origin,
-    license: e.license,
-    metadata: e.metadata
+    origin: cfg.origin,
+    license: cfg.license,
+    metadata: cfg.metadata
   }
 }
 
@@ -40,7 +40,7 @@ function error (res, status, msg) {
 router.get('/dataset', (req, res) => {
   res.json(Object.fromEntries(
     Object.entries(datastoreConfigs)
-      .map(([k, v]) => [k, assembleMetadata(k, v)])))
+      .map(([id, cfg]) => [id, assembleMetadata(id, cfg)])))
 })
 
 router.get('/dataset/:dataset', (req, res) => {
@@ -52,6 +52,7 @@ router.get('/dataset/:dataset', (req, res) => {
   res.json(assembleMetadata(datasetId, config))
 })
 
+// define source URL handlers for each supported protocol
 const protocolHandlers = {
   http: (uri) => got.get(uri).buffer(),
   https: (uri) => got.get(uri).buffer(),
@@ -68,7 +69,7 @@ router.get('/dataset/:dataset/raw', async (req, res) => {
   let rawGTFS = cache.get(datasetId)
   if (!rawGTFS) {
     const uri = datasetConfig.source
-    const proto = uri.match(/^(\w+):.*/)[1].toLowerCase() // extract the protocol part of an URL
+    const proto = uri.match(/^(\w+):.*/)[1].toLowerCase() // extract the protocol part of URL
     const handler = protocolHandlers[proto]
     rawGTFS = await handler(uri)
     cache.set(datasetId, rawGTFS, datasetConfig.cache_ttl)
@@ -82,18 +83,20 @@ router.get('/dataset/:dataset/raw', async (req, res) => {
   res.end(rawGTFS)
 })
 
+// Openapi stuff
 const apiSpecUrl = `${process.env.API_BASE_URL}/v1/apispec`
 const redirectSwagger = (req, res) => {
   res.redirect(`https://swagger.opendatahub.com/?url=${apiSpecUrl}`)
 }
 const openapiRouter = Router()
 openapiRouter.get('/', redirectSwagger)
+app.use('/', openapiRouter)
 router.get('/', redirectSwagger)
 router.get('/apispec', (req, res) => res.sendFile(path.resolve('openapi3.yml')))
 
+
 app.use(pinoHttp)
 app.set('trust proxy')
-app.use('/', openapiRouter)
 app.use('/v1/', router) // use v1 prefix for all URLs
 app.use(cors({ origin: '*' }))
 app.listen(port, () => {
