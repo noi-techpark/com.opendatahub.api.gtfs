@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Open Data Hub GTFS API
+  description: >
+    API to retrieve GTFS files and related metadata.
+  termsOfService: https://docs.opendatahub.com/en/latest/licenses.html#apis-terms-of-service
+  contact:
+    name: Open Data Hub
+    url: https://opendatahub.com
+    email: help@opendatahub.com
+  license:
+    name: API License
+    url: https://docs.opendatahub.com/en/latest/licenses.html
+  version: V1
+servers:
+  - url: https://gtfs.api.opendatahub.com/v1
+paths:
+  /v1/dataset:
+    get:
+      summary: Get all available datasets
+      responses:
+        200:
+          description: List of dataset metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/datasets"
+  /v1/dataset/{datasetId}:
+    get:
+      summary: Get metadata of specific dataset by ID
+      parameters:
+        - $ref: "#/components/parameters/datasetId"
+      responses:
+        200:
+          description: List of dataset metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/datasets"
+        400:
+          description: Invalid dataset ID
+  /v1/dataset/{datasetId}/raw:
+    get:
+      summary: Download the raw GTFS (.zip) file
+      parameters:
+        - $ref: "#/components/parameters/datasetId"
+      responses:
+        200:
+          description: Raw GTFS file
+          x-is-file: true
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Invalid dataset ID
+
+components:
+  parameters:
+    datasetId:
+      name: datasetId
+      in: path
+      required: true
+      description: Dataset ID, as returned in the /v1/dataset/ call
+      schema:
+        type: string
+  schemas:
+    datasets:
+      type: object
+      description: Map of datasets by ID (id, dataset). `skyalps-flight-data` and `sta-time-tables` are example IDs
+      properties:
+        skyalps-flight-data:
+          $ref: "#/components/schemas/dataset"
+        sta-time-tables:
+          $ref: "#/components/schemas/dataset"
+    dataset:
+      type: object
+      description: Metadata of a GTFS dataset
+      properties:
+        description:
+          type: string
+          description: A short description of the dataset
+        origin:
+          type: string
+          description: The provider of the dataset
+        license:
+          type: string
+          description: License under which the dataset is published
+        metadata:
+          type: object
+          description: A free form JSON object that may contain additional metadata
+          additionalProperties: true
