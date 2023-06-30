@@ -22,6 +22,10 @@ const port = 3000
 const cache = new NodeCache()
 const pinoHttp = pino({ level: process.env.LOG_LEVEL })
 
+app.use(pinoHttp)
+app.use(cors())
+app.set('trust proxy')
+
 function assembleMetadata (id, cfg) {
   return {
     description: cfg.description,
@@ -93,9 +97,6 @@ openapiRouter.get('/', redirectSwagger)
 router.get('/', redirectSwagger)
 router.get('/apispec', (req, res) => res.sendFile(path.resolve('openapi3.yml')))
 
-app.use(pinoHttp)
-app.use(cors())
-app.set('trust proxy')
 app.use('/', openapiRouter)
 app.use('/v1/', router) // use v1 prefix for all URLs
 app.listen(port, () => {
