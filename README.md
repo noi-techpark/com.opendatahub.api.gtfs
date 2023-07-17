@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: NOI Techpark <digital@noi.bz.it>
 
 SPDX-License-Identifier: CC0-1.0
 -->
-![REUSE Compliance](https://github.com/noi-techpark/com.opendatahub.api.gtfs/actions/workflows/reuse.yml/badge.svg)
+[![REUSE Compliance](https://github.com/noi-techpark/com.opendatahub.api.gtfs/actions/workflows/reuse.yml/badge.svg)](https://github.com/noi-techpark/odh-docs/wiki/REUSE#badges)
 
 # GTFS API server
 
